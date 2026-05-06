@@ -21,7 +21,7 @@ main:
 	move $t0, $v0        #scanf("%d",&type);
 	
 	li $v0, 11
-	la $a0, '\n'      #printf("\n");
+	li $a0, '\n'      #printf("\n");
 	syscall
 	
 	#Print out prompt to type in size
@@ -35,11 +35,12 @@ main:
 	move $t1, $v0        #scanf("%d",&size);
 
 	li $v0, 11
-	la $a0, '\n'      #printf("\n");
+	li $a0, '\n'      #printf("\n");
 	syscall
 	
 	#Check if user gave a valid size
 	bgt $t1, $zero, valid_size   #if(size > 0) goto valid_size
+	li $v0, 4
 	la $a0, invalid_size         #printf("The size must be a positive number\n")
 	syscall
 	j done  
@@ -94,7 +95,7 @@ square:
 s_loop: 
 	#Print a line of the square
 	li $v0, 11
-	la $a0, '*'             #a0 = '*'
+	li $a0, '*'             #a0 = '*'
 	syscall                 #printf("%c",a0);
 	addi $t1, $t1, 1        #counter = counter + 1
 	blt $t1, $t2, s_loop    #if(counter < width) goto s_loop
@@ -102,7 +103,7 @@ s_loop:
 s_end:
 	#Print a newline and recursively call to print next line
 	li $v0, 11
-	la $a0, '\n'           #a0 = '\n'
+	li $a0, '\n'           #a0 = '\n'
 	syscall                #printf("%c",a0);
 	move $a0, $t2          #a0 = width
 	addi $a1, $a1, 1       #curHeight = curHeight + 1
@@ -129,7 +130,7 @@ triangle:
 t_loop: 
 	#Print a line of the triangle
 	li $v0, 11
-	la $a0, '*'               #a0 = '*'
+	li $a0, '*'               #a0 = '*'
 	syscall                   #printf("%c",a0);
 	addi $t1, $t1, 1          #counter = counter + 1
 	ble $t1, $a1, t_loop      #if(counter <= curHeight) goto t_loop
@@ -137,7 +138,7 @@ t_loop:
 t_end:
 	#Print a newline and recursively call to print next line
 	li $v0, 11
-	la $a0, '\n'             #a0 = '\n'
+	li $a0, '\n'             #a0 = '\n'
 	syscall                 #printf("%c",a0);
 	move $a0, $t2           #a0 = width
 	addi $a1, $a1, 1        #curHeight = curHeight + 1
@@ -169,7 +170,7 @@ l_bound:
 	#Print left boundary
 	li $v0, 11
 	bge $t1, $t3, l_end      #if(counter < bounds) goto l_end
-	la $a0, ' '              #a0 = ' ';
+	li $a0, ' '              #a0 = ' ';
 	syscall                  #printf("%c", a0);
 	addi $t1, $t1, 1         #counter = counter + 1
 	j l_bound                #goto l_bound
@@ -180,9 +181,9 @@ l_end:
 middle:
 	#Print out the middle section of stars and spaces alternating
 	li $v0, 11
-	la $a0, '*'              #a0 = "*"
+	li $a0, '*'              #a0 = "*"
 	syscall                  #printf("%c",a0)
-	la $a0, ' '              #a0 = " "
+	li $a0, ' '              #a0 = " "
 	syscall                  #printf("%c",a0)
 	addi $t1, $t1, 1         #counter = counter + 1
 	ble $t1, $a1, middle     #if(counter <= curHeight) goto middle
@@ -194,7 +195,7 @@ r_bound:
 	#Print right boundary
 	li $v0, 11
 	bge $t1, $t3, r_end     #if(counter < bounds) goto r_end
-	la $a0, ' '             #a0 = " "
+	li $a0, ' '             #a0 = " "
 	syscall                 #printf('%c', a0)
 	addi $t1, $t1, 1        #counter = counter + 1
 	j r_bound               #goto r_bound
@@ -202,7 +203,7 @@ r_bound:
 r_end:
 	#Print a newline and recursively call to print next line
 	li $v0, 11
-	la $a0, '\n'            #a0 = '\n'
+	li $a0, '\n'            #a0 = '\n'
 	syscall                 #printf('%c', a0)
 	move $a0, $t2           #a0 = width
 	addi $a1, $a1, 1        #curHeight = curHeight + 1

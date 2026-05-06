@@ -95,7 +95,7 @@ r_loop:
 	li $t1, 0           #c = 0
 
 c_loop:
-	bge $t1, $a1, c_end #if(c >= p) goto r_end
+	bge $t1, $a1, c_end #if(c >= p) goto c_end
 	li $t5, 0           #sum = 0
 	li $t2, 0           #i = 0
 

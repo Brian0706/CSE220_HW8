@@ -3,34 +3,58 @@
 Part A tests:
 
 Test 1 - Smallest Triangle
-Input: 0, 1
+Input: 
+Shape: 0
+Size: 1
 Result: 
 *
 
 Test 2 - Smallest Square
-Input: 1, 1
+Input: 
+Shape: 1
+Size: 1
 Result: 
 *
 
 Test 3 - Smallest Pyramid
-Input: 2, 1
+Input: 
+Shape: 2
+Size: 1
 Result: 
 *
 
 Test 4 - Base Triangle
-Input: 5, 1
+Input: 
+Shape: 0
+Size: 5
 Result: 
 *
+**
+***
+****
+*****
 
 Test 5 - Base Square
-Input: 5, 1
+Input:
+Shape: 1
+Size: 5
 Result: 
-*
+*****
+*****
+*****
+*****
+*****
 
 Test 6 - Base Pyramid
-Input: 5, 1
+Input: 
+Shape: 2
+Size: 5
 Result: 
-*
+    *    
+   * *   
+  * * *  
+ * * * *
+* * * * *
 
 Part B tests:
 Test 1 - Same values
@@ -169,3 +193,8 @@ Result:
 -18 -20 -22 24 
 -26 28 30 32
 
+Things to note about my functions
+
+Part A
+- size of 0 is considered to be invalid and as such, inputing a 0 for size will result in an error message
+- giving a shape argument that is not 0,1 or 2 will result in an error message

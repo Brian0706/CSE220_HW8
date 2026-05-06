@@ -69,7 +69,7 @@ in_loop:
 	lw $t6, 0($t4)          #temp = arr[j]
 	lw $t7, 0($t5)          #temp2 = arr[j+1]
 	bge $t6, $t7, if_end    #if(arr[j] >= arr[j+1]) goto if_end
-	sw $t6, 0($t5)          #arr[j] = temp
+	sw $t6, 0($t5)          #arr[j+1] = temp
 	sw $t7, 0($t4)          #arr[j] = temp2
 if_end:
 	addi $t2, $t2, 1          #j = j + 1

@@ -13,16 +13,19 @@ space: .asciiz " "
 .text
 main:
 	#Load in variables
-	la $t0, A        #Create a pointer to A
-	la $t1, B        #Create a pointer to B
-	lw $t2, num      #size = num
+	la $s0, A        #Create a pointer to A
+	la $s1, B        #Create a pointer to B
+	lw $s2, num      #size = num
+	move $t0, $s0    #Pointer to navigate through A
+	move $t1, $s1    #Pointer to navigate through B
+	
 	#Because matrix is zero-indexed but count starts at 1
 	#counter is initalized to 1
 	li $t3, 1        #counter = 1
 
 #Gets intial value from users
 init_loop:
-	bgt $t3, $t2, init_end  #if(counter > num) goto init_end
+	bgt $t3, $s2, init_end  #if(counter > num) goto init_end
 	
 	#This section prints out A[counter]=
 	li $v0, 4
@@ -60,28 +63,38 @@ init_loop:
 	addi $t1, $t1, 4        #Move pointer to next element in B
 	j init_loop             #goto init_loop
 init_end: 
+	
+	#Move arguments to arg registers and call swap
+	move $a0, $s0           #a0 = A
+	move $a1, $s1           #a1 = B
+	move $a2, $s2           #a2 = num
+	jal swap                #swap(A,B,num)
+	
+	#Move arguments to arg registers and call print_loop
+	move $a0, $s0           #a0 = pointer to A
+	move $a1, $s1           #a1 = pointer to B
+	move $a2, $s2           #a2 = num
+	jal print_loop          #print_loop(A,B,num)
 
-jal swap
-
-jal print_loop
-
-li $v0, 10
-syscall
+	li $v0, 10
+	syscall
 
 #Swaps the values of matrix A and matrix B
+#swap(int* A, int* B, int size)
 swap:
-	la $t0, A               #pointer to matrix A
-	la $t1, B               #pointer to matrix B
+	move $t0, $a0           #pointer to matrix A
+	move $t1, $a1           #pointer to matrix B
+	move $t2, $a2
 	li $t3, 1               #counter = 1
 
 swap_loop:
 	bgt $t3, $t2, swap_end  #if(counter > num) goto swap_end
 	#Store A[counter-1] and B[counter-1] in registers
-	lw $t4, 0($t0)          #temp = *pointerA
-	lw $t5, 0($t1)          #temp2 = *pointerB
+	lw $t4, 0($t0)          #temp = A[counter]
+	lw $t5, 0($t1)          #temp2 = B[counter]
 	#Swap the values of the arrays
-	sw $t4, 0($t1)          #*pointerA = temp2
-	sw $t5, 0($t0)          #*pointerB = temp
+	sw $t4, 0($t1)          #B[counter] = temp
+	sw $t5, 0($t0)          #A[counter] = temp2
 	
 	addi $t3, $t3, 1        #Increment counter
 	addi $t0, $t0, 4        #Move pointer to next element in A
@@ -91,9 +104,11 @@ swap_end:
 	jr $ra
 
 #Prints out loops A and B as specified in the assignment
+#print_loop(int* A, int* B, int size)
 print_loop:
-	la $t0, A               #Create a pointer to A
-	la $t1, B               #Create a pointer to B
+	move $t0, $a0           #pointer to matrix A
+	move $t1, $a1           #pointer to matrix B
+	move $t2, $a2           #t2 = num
 	li $t3, 1               #counter = 1
 	
 #Loops through arrays and prints them out
