@@ -20,6 +20,7 @@ newline: .asciiz "\n"
 space: .asciiz " "
 
 .text
+.globl main 
 main: 
 	#Preparing arguments for multiply function
 	lw $a0, n            #n = n

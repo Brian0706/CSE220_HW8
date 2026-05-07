@@ -59,6 +59,8 @@ Result:
 * * * * *
 
 Part B tests:
+- The input is given as a comma seperated list. To run this take each number and input them into the console
+left to right
 Test 1 - Same values
 Input: 1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,0,0
 Result: 1 1|2 2|3 3|4 4|5 5|6 6|7 7|8 8|9 9|0 0|
@@ -72,20 +74,23 @@ Input: 1,-2,-3,4,-5,6,-7,-8,9,0,1,-2,-3,4,5,6,-7,-8,9,0
 Result: -2 1|4 -3|6 -5|-8 -7|0 9|-2 1|4 -3|6 5|-8 -7|0 9|
 
 Test 4 - Different n
-- Set n to 5
+.data
+n: .word 5
 Input: 1,2,3,4,5,6,7,8,9,0
 Result: 2 1|4 3|6 5|8 7|0 9|
 
 Test 5 - Smallest case
-- Set n to 1
+.data
+n: .word 1
 Input: 1,2
 Result: 2 1|
 
 Part C tests:
--Tests will involve changing v in the data section
+-Tests will involve changing the data section
 
 Test 1: smallest test
 Input:
+.data
 v: .word 10
 num: .word 1
 Result:
@@ -93,31 +98,36 @@ Sorted Array: 10
 
 Test 2: Sorted in ascending order
 Input:
+.data
 v: .word 0,1,2,3,4,5,6,7,8,9
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 3: Already Sorted
 Input:
+.data
 v: .word 9,8,7,6,5,4,3,2,1,0
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 4: Repeated number
 Input: 
+.data
 v: .word 1,4,6,7,3,4,8,11,12,45
 Result:
 Sorted Array: 45 12 11 8 7 6 4 4 3 1
 
 Test 5: Negative values
 Input:
+.data
 v: .word 1,4,6,-7,-3,4,8,11,-12,0
 Result:
 Sorted Array: 11 8 6 4 4 1 0 -3 -7 -12
 
 Part D tests:
 Test 1: Zero Matrix
-Input in .data:
+Input:
+.data
 A: .word 1, 2, 3, 4
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
@@ -136,7 +146,8 @@ Result:
 0 0 0 0
 
 Test 2: One by One Matrix
-Input in .data:
+Input:
+.data
 A: .word 2
 B: .word 2
 .align 2
@@ -146,7 +157,8 @@ Result:
 4
 
 Test 3: Reciprocal Matrices
-Input in .data:
+Input:
+.data
 A: .word 4, 3
 .word 3, 2
 B: .word -2, 3
@@ -159,7 +171,8 @@ Result:
 0 1
 
 Test 4: Base Case
-Input in .data:
+Input:
+.data
 A: .word 1, 2, 3, 4
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
@@ -178,7 +191,8 @@ Result:
 26 28 30 32
 
 Test 5: Negative Values
-Input in .data:
+Input:
+.data
 A: .word 1, 2, -3, 4
 .word -5, 6, -7, 8
 .word 9, -10, 11, 12

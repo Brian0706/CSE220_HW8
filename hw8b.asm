@@ -14,6 +14,7 @@ border: .asciiz "|"
 space: .asciiz " "
 
 .text
+.globl main
 main:
 	#Load in variables
 	la $s0, A        #Create a pointer to A

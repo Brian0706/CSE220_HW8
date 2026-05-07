@@ -8,6 +8,7 @@ n: .word 10
 message: .asciiz "Sorted Array: "
 space: .asciiz " "
 .text
+.globl main 
 main:
 	#Store the array and its size in local variables
 	la $s0, v         #pointer to array v
