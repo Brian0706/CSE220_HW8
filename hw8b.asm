@@ -1,3 +1,6 @@
+# Brian Chau
+# SBU Id: 116125954
+
 .data
 .align 2
 A: .space 40 #memory space for Array A

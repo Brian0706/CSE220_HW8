@@ -1,3 +1,6 @@
+# Brian Chau
+# SBU Id: 116125954
+
 .data
 v: .word 1,4,6,-7,-3,4,8,11,-12,0
 n: .word 10

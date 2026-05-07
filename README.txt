@@ -1,4 +1,6 @@
 # CSE220_HW8
+# Brian Chau
+# SBU Id: 116125954
 
 Part A tests:
 

@@ -1,3 +1,6 @@
+# Brian Chau
+# SBU Id: 116125954
+
 .data
 typeprompt: .asciiz "Triangle(0) or Square(1) or Pyramid (2)? "
 sizeprompt: .asciiz "Required size? "
