@@ -85,6 +85,7 @@ Part C tests:
 Test 1: smallest test
 Input:
 v: .word 10
+num: .word 1
 Result:
 Sorted Array: 10
 
@@ -92,13 +93,13 @@ Test 2: Sorted in ascending order
 Input:
 v: .word 0,1,2,3,4,5,6,7,8,9
 Result:
-Sorted Array: 9,8,7,6,5,4,3,2,1,0
+Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 3: Already Sorted
 Input:
 v: .word 9,8,7,6,5,4,3,2,1,0
 Result:
-Sorted Array: 9,8,7,6,5,4,3,2,1,0
+Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 4: Repeated number
 Input: 
