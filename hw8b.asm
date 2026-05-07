@@ -46,7 +46,7 @@ init_loop:
 	syscall                 
 	sw $v0, 0($t0)          #scanf("%d", pointerA)
 	
-	#This section prints out A[counter]=
+	#This section prints out B[counter]=
 	li $v0, 4
 	la $a0, startB          #printf("B[")
 	syscall
@@ -81,7 +81,7 @@ init_end:
 	jal print_loop          #print_loop(A,B,num)
 
 	li $v0, 10
-	syscall
+	syscall               
 
 #Swaps the values of matrix A and matrix B
 #swap(int* A, int* B, int size)
@@ -89,11 +89,11 @@ swap:
 	move $t0, $a0           #pointer to matrix A
 	move $t1, $a1           #pointer to matrix B
 	move $t2, $a2
-	li $t3, 1               #counter = 1
+	li $t3, 0               #counter = 0
 
 swap_loop:
-	bgt $t3, $t2, swap_end  #if(counter > num) goto swap_end
-	#Store A[counter-1] and B[counter-1] in registers
+	bge $t3, $t2, swap_end  #if(counter >= num) goto swap_end
+	#Store A[counter] and B[counter] in registers
 	lw $t4, 0($t0)          #temp = A[counter]
 	lw $t5, 0($t1)          #temp2 = B[counter]
 	#Swap the values of the arrays
@@ -107,7 +107,7 @@ swap_loop:
 swap_end:
 	jr $ra
 
-#Prints out loops A and B as specified in the assignment
+#Prints out arrays A and B as specified in the assignment
 #print_loop(int* A, int* B, int size)
 print_loop:
 	move $t0, $a0           #pointer to matrix A
@@ -131,9 +131,9 @@ out_loop:
 	li $v0, 4
 	la $a0, border
 	syscall                #printf("|")
-	addi $t3, $t3, 1        #counter = counter + 1
-	addi $t0, $t0, 4        #pointerA = pointerA + 1
-	addi $t1, $t1, 4        #pointerB = pointerB + 1
+	addi $t3, $t3, 1       #counter = counter + 1
+	addi $t0, $t0, 4       #pointerA = pointerA + 1
+	addi $t1, $t1, 4       #pointerB = pointerB + 1
 	j out_loop             #goto out_loop
 out_end:
 	jr $ra

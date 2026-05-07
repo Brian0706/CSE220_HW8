@@ -5,11 +5,11 @@
 #-----------------------------------------------
 # Matrices
 #-----------------------------------------------
-A: .word 1, 2, 3, 4
+A: .word 1, 2, 3, 4  # Matrix to be multiplied n x p
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
 .word 13, 14, 15, 16
-B: .word 2, 0, 0, 0 # This is a unit matrix
+B: .word 2, 0, 0, 0  # Matrix to be multiplied p x m
 .word 0, 2, 0, 0
 .word 0, 0, 2, 0
 .word 0, 0, 0, 2
@@ -84,7 +84,7 @@ multiply:
 	sw $s1, 4($sp)      #Store s1 in stack
 	sw $s2, 8($sp)      #Store s2 in stack
 
-	#Move perisitent arguments into local variable registers
+	#Move persistent arguments into local variable registers
 	move $s0, $a3       #s0 = A
 	move $s1, $t0       #s1 = B
 	move $s2, $t1       #s2 = C
@@ -96,7 +96,7 @@ r_loop:
 	li $t1, 0           #c = 0
 
 c_loop:
-	bge $t1, $a1, c_end #if(c >= p) goto c_end
+	bge $t1, $a1, c_end #if(c >= m) goto c_end
 	li $t5, 0           #sum = 0
 	li $t2, 0           #i = 0
 
@@ -111,7 +111,7 @@ c_loop:
 
 i_loop:
 	#Multiply A[r][i] and B[i][c], then add it to the sum
-	bge $t2, $a2, i_end #if(i >= m) goto i_end
+	bge $t2, $a2, i_end #if(i >= p) goto i_end
 	lw $t6, 0($t3)      #operand1 = A[r][i]
 	lw $t7, 0($t4)      #operand2 = B[i][c]
 	mul $t6, $t6, $t7   #result = A[r][i] * B[i][c]
@@ -127,7 +127,7 @@ i_loop:
 	
 i_end:
 	#Set value of C[r][c] to sum
-	sw $t5, 0($s2)      #pointerC = sum
+	sw $t5, 0($s2)      #*pointerC = sum
 	addi $s2, $s2, 4    #pointerC = pointerC + 1
 	addi $t1, $t1, 1    #c = c + 1 
 	j c_loop
@@ -140,5 +140,5 @@ r_end:
 	lw $s0, 0($sp)      #Retrieve s0 from stack
 	lw $s1, 4($sp)      #Retrieve s1 from stack
 	lw $s2, 8($sp)      #Retrieve s2 from stack
-	addi $sp, $sp, 12  #Clear stack frame
+	addi $sp, $sp, 12   #Clear stack frame
 	jr $ra

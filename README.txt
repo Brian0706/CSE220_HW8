@@ -75,13 +75,17 @@ Result: -2 1|4 -3|6 -5|-8 -7|0 9|-2 1|4 -3|6 5|-8 -7|0 9|
 
 Test 4 - Different n
 .data
-n: .word 5
+A: .space 20 #memory space for Array A
+B: .space 20 #memory space for Array B
+num: .word 5
 Input: 1,2,3,4,5,6,7,8,9,0
 Result: 2 1|4 3|6 5|8 7|0 9|
 
 Test 5 - Smallest case
 .data
-n: .word 1
+A: .space 4 #memory space for Array A
+B: .space 4 #memory space for Array B
+num: .word 1
 Input: 1,2
 Result: 2 1|
 
@@ -92,7 +96,7 @@ Test 1: smallest test
 Input:
 .data
 v: .word 10
-num: .word 1
+n: .word 1
 Result:
 Sorted Array: 10
 
@@ -100,6 +104,7 @@ Test 2: Sorted in ascending order
 Input:
 .data
 v: .word 0,1,2,3,4,5,6,7,8,9
+n: .word 10
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
@@ -107,6 +112,7 @@ Test 3: Already Sorted
 Input:
 .data
 v: .word 9,8,7,6,5,4,3,2,1,0
+n: .word 10
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
@@ -114,6 +120,7 @@ Test 4: Repeated number
 Input: 
 .data
 v: .word 1,4,6,7,3,4,8,11,12,45
+n: .word 10
 Result:
 Sorted Array: 45 12 11 8 7 6 4 4 3 1
 
@@ -121,6 +128,7 @@ Test 5: Negative values
 Input:
 .data
 v: .word 1,4,6,-7,-3,4,8,11,-12,0
+n: .word 10
 Result:
 Sorted Array: 11 8 6 4 4 1 0 -3 -7 -12
 
@@ -215,3 +223,7 @@ Things to note about my functions
 Part A
 - size of 0 is considered to be invalid and as such, inputing a 0 for size will result in an error message
 - giving a shape argument that is not 0,1 or 2 will result in an error message
+- Also, to accomidate printing the stars of pyramid, the print_star_line takes two arguments instead of One
+    -The two arguments are: times which is the number of times to print the string
+                            string the string which is to repeadtly printed
+

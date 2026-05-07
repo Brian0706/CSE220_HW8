@@ -27,7 +27,7 @@ main:
 	move $t0, $v0        #scanf("%d",&type);
 	
 	li $v0, 11
-	li $a0, '\n'      #printf("\n");
+	li $a0, '\n'         #printf("\n");
 	syscall
 	
 	#Print out prompt to type in size
@@ -41,7 +41,7 @@ main:
 	move $t1, $v0        #scanf("%d",&size);
 
 	li $v0, 11
-	li $a0, '\n'      #printf("\n");
+	li $a0, '\n'         #printf("\n");
 	syscall
 	
 	#Check if user gave a valid size
@@ -77,9 +77,9 @@ not_square:
 
 not_shape:
 	#Tell user they did not give a valid shape type
-	li $v0, 4           #printf("Must give a 0,1,2 for the shape")
+	li $v0, 4           
 	la $a0, invalid_shape
-	syscall
+	syscall                     #printf("Must give a 0,1,2 for the shape")
 
 done:
 	li $v0, 10
@@ -88,13 +88,14 @@ done:
 
 #square(int width, int curHeight)
 square: 
+	# Set aside space in stack and store callee-saved registers
 	addi $sp, $sp, -12
 	sw $ra, 0($sp)
 	sw $s0, 4($sp)
 	sw $s1, 8($sp)
 	
 	#Check for base case
-	beq $a0, $a1, s_reset     #if(width == curHeight) goto s_end
+	beq $a0, $a1, s_reset     #if(width == curHeight) goto s_reset
 	
 	#Save the arguments before using argument registers
 	move $s0, $a0               
@@ -113,6 +114,7 @@ square:
 	jal square             #square(width, curHeight + 1)
 
 s_reset:
+	#Clear stack frame and retrieve stored values
 	lw $ra, 0($sp)
 	lw $s0, 4($sp)
 	lw $s1, 8($sp)
@@ -122,31 +124,32 @@ s_reset:
 
 #triangle(int width, int curHeight)
 triangle: 
+	# Set aside space in stack and store callee-saved registers
 	addi $sp, $sp, -12
 	sw $ra, 0($sp)
 	sw $s0, 4($sp)
 	sw $s1, 8($sp)
 	
 	#Check for base case
-	beq $a0, $a1, t_reset       #if(width == curHeight) goto t_end
+	beq $a0, $a1, t_reset       #if(width == curHeight) goto t_reset
 	#Save the arguments before using argument registers
 	move $s0, $a0               
 	move $s1, $a1
 	#Load values into argument registers and call print_star_line
 	addi $a0, $s1, 1            #times = curHeight + 1
 	la $a1, star
-	jal print_star_line         #print_star_line(curHeight, "*");
+	jal print_star_line         #print_star_line(curHeight+1, "*");
 	
 	#Print a newline and recursively call to print next line
 	li $v0, 11
 	li $a0, '\n'             #a0 = '\n'
-	syscall                 #printf("%c",a0);
-	move $a0, $s0           #a0 = width
-	addi $a1, $s1, 1        #curHeight = curHeight + 1
-	jal triangle            #triangle(width, curHeight + 1)
+	syscall                  #printf("%c",a0);
+	move $a0, $s0            #a0 = width
+	addi $a1, $s1, 1         #curHeight = curHeight + 1
+	jal triangle             #triangle(width, curHeight + 1)
 
 t_reset:
-	#Clear stack frame
+	#Clear stack frame and retrieve stored values
 	lw $ra, 0($sp)
 	lw $s0, 4($sp)
 	lw $s1, 8($sp)
@@ -154,7 +157,8 @@ t_reset:
 	jr $ra
 
 #pyramid(int width, int curHeight)
-pyramid:      
+pyramid:  
+	# Set aside space in stack and store callee-saved registers    
 	addi $sp, $sp, -16
 	sw $ra, 0($sp)
 	sw $s0, 4($sp)
@@ -162,7 +166,7 @@ pyramid:
 	sw $s2, 12($sp)
 	
 	#Check for base case
-	beq $a0, $a1, p_end       #if(width == curHeight) goto t_end
+	beq $a0, $a1, p_end       #if(width == curHeight) goto p_end
 	#Save the arguments before using argument registers
 	move $s0, $a0               
 	move $s1, $a1
@@ -177,7 +181,7 @@ pyramid:
 l_bound:
 	#Print left boundary
 	li $v0, 11
-	bge $t1, $s2, l_end      #if(counter < bounds) goto l_end
+	bge $t1, $s2, l_end      #if(counter >= bounds) goto l_end
 	li $a0, ' '              #a0 = ' ';
 	syscall                  #printf("%c", a0);
 	addi $t1, $t1, 1         #counter = counter + 1
@@ -186,9 +190,9 @@ l_end:
 	
 middle:
 	#Load values into argument registers and call print_star_line
-	addi $a0, $s1, 1            #times = curHeight + 1            
+	addi $a0, $s1, 1          #times = curHeight + 1            
 	la $a1, star_and_space
-	jal print_star_line      #print_star_line(curHeight, "* ");
+	jal print_star_line       #print_star_line(curHeight+1, "* ");
 middle_end:
 
 	#Reset counter
@@ -196,7 +200,7 @@ middle_end:
 r_bound:
 	#Print right boundary
 	li $v0, 11
-	bge $t1, $s2, r_end     #if(counter < bounds) goto r_end
+	bge $t1, $s2, r_end     #if(counter >= bounds) goto r_end
 	li $a0, ' '             #a0 = " "
 	syscall                 #printf('%c', a0)
 	addi $t1, $t1, 1        #counter = counter + 1
@@ -212,10 +216,11 @@ r_end:
 	jal pyramid             #pyramid(width, curHeight + 1)
 
 p_end:
+        #Clear stack frame and retrieve values from it
 	lw $ra, 0($sp)
 	lw $s0, 4($sp)
 	lw $s1, 8($sp)
-	sw $s2, 12($sp)
+	lw $s2, 12($sp)
 	addi $sp, $sp, 16
 	jr $ra
 
@@ -230,6 +235,6 @@ print_loop:
 	move $a0, $a1                    #a0 = string
 	syscall                        #printf(string);
 	addi $t0, $t0, 1               #counter = counter + 1
-	blt $t0, $t1, print_loop       #if(counter < times) goto t_loop
+	blt $t0, $t1, print_loop       #if(counter < times) goto print_loop
 print_end:
 	jr $ra
