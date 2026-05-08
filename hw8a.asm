@@ -4,7 +4,7 @@
 .data
 typeprompt: .asciiz "Triangle(0) or Square(1) or Pyramid (2)? "
 sizeprompt: .asciiz "Required size? "
-invalid_shape: .asciiz "Must give a 0,1,2 for the shape"
+invalid_shape: .asciiz "Must give a 0,1,2 for the shape\n"
 invalid_size: .asciiz "The size must be a positive number\n"
 star: .asciiz "*"            #This is for square and triangle
 star_and_space: .asciiz "* "  #This is for pyramid
@@ -79,7 +79,7 @@ not_shape:
 	#Tell user they did not give a valid shape type
 	li $v0, 4           
 	la $a0, invalid_shape
-	syscall                     #printf("Must give a 0,1,2 for the shape")
+	syscall                     #printf("Must give a 0,1,2 for the shape\n")
 
 done:
 	li $v0, 10
@@ -172,7 +172,7 @@ pyramid:
 	move $s1, $a1
 	
 	
-	#Determine how many spaces before and after stars
+	#Determine how many spaces before stars
 	sub $s2, $a0, $a1        #bounds = width - curHeight
 	addi $s2, $s2, -1        #bounds = bounds - 1
 	
@@ -187,26 +187,11 @@ l_bound:
 	addi $t1, $t1, 1         #counter = counter + 1
 	j l_bound                #goto l_bound
 l_end:
-	
-middle:
 	#Load values into argument registers and call print_star_line
 	addi $a0, $s1, 1          #times = curHeight + 1            
 	la $a1, star_and_space
 	jal print_star_line       #print_star_line(curHeight+1, "* ");
-middle_end:
 
-	#Reset counter
-	li $t1, 0                #counter = 0
-r_bound:
-	#Print right boundary
-	li $v0, 11
-	bge $t1, $s2, r_end     #if(counter >= bounds) goto r_end
-	li $a0, ' '             #a0 = " "
-	syscall                 #printf('%c', a0)
-	addi $t1, $t1, 1        #counter = counter + 1
-	j r_bound               #goto r_bound
-	
-r_end:
 	#Print a newline and recursively call to print next line
 	li $v0, 11
 	li $a0, '\n'            #a0 = '\n'
@@ -224,11 +209,12 @@ p_end:
 	addi $sp, $sp, 16
 	jr $ra
 
-#Prints a string x number of times in a  row
+#Prints a string x number of times in a row
 #print_star_line(int times, char* string)
 print_star_line:
 	li $t0, 0                      #counter = 0
-	move $t1, $a0                    #t1 = times
+	move $t1, $a0                  #t1 = times
+	beqz $a0, print_end            #if(times == 0) goto print_end
 print_loop:
 	#Print a line of string
 	li $v0, 4

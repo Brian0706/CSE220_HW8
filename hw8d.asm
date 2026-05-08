@@ -5,11 +5,11 @@
 #-----------------------------------------------
 # Matrices
 #-----------------------------------------------
-A: .word 1, 2, 3, 4  # Matrix to be multiplied n x p
+A: .word 1, 2, 3, 4  # Matrix to be multiplied n x m
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
 .word 13, 14, 15, 16
-B: .word 2, 0, 0, 0  # Matrix to be multiplied p x m
+B: .word 2, 0, 0, 0  # Matrix to be multiplied m x p
 .word 0, 2, 0, 0
 .word 0, 0, 2, 0
 .word 0, 0, 0, 2
@@ -52,7 +52,7 @@ in_loop:
 	#Load number at pointer and print it
 	li $v0, 1
 	lw $a0, 0($t4)
-	syscall              #printf("%d", pointer)
+	syscall              #printf("%d", *pointer)
 	li $v0, 4
 	la $a0, space 
 	syscall              #printf(" ")
@@ -63,6 +63,7 @@ in_loop:
 	
 in_end:
 	#Print newline
+	li $v0, 4
 	la $a0, newline
 	syscall              #printf("\n") 
 	addi $t2, $t2, 1     #i = i+1
@@ -96,7 +97,7 @@ r_loop:
 	li $t1, 0           #c = 0
 
 c_loop:
-	bge $t1, $a1, c_end #if(c >= m) goto c_end
+	bge $t1, $a2, c_end #if(c >= p) goto c_end
 	li $t5, 0           #sum = 0
 	li $t2, 0           #i = 0
 
@@ -111,7 +112,7 @@ c_loop:
 
 i_loop:
 	#Multiply A[r][i] and B[i][c], then add it to the sum
-	bge $t2, $a2, i_end #if(i >= p) goto i_end
+	bge $t2, $a1, i_end #if(i >= m) goto i_end
 	lw $t6, 0($t3)      #operand1 = A[r][i]
 	lw $t7, 0($t4)      #operand2 = B[i][c]
 	mul $t6, $t6, $t7   #result = A[r][i] * B[i][c]

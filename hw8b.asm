@@ -23,7 +23,7 @@ main:
 	move $t0, $s0    #Pointer to navigate through A
 	move $t1, $s1    #Pointer to navigate through B
 	
-	#Because matrix is zero-indexed but count starts at 1
+	#Because array is zero-indexed but count starts at 1
 	#counter is initalized to 1
 	li $t3, 1        #counter = 1
 
@@ -83,11 +83,11 @@ init_end:
 	li $v0, 10
 	syscall               
 
-#Swaps the values of matrix A and matrix B
+#Swaps the values of array A and array B
 #swap(int* A, int* B, int size)
 swap:
-	move $t0, $a0           #pointer to matrix A
-	move $t1, $a1           #pointer to matrix B
+	move $t0, $a0           #pointer to array A
+	move $t1, $a1           #pointer to array B
 	move $t2, $a2
 	li $t3, 0               #counter = 0
 
@@ -110,8 +110,8 @@ swap_end:
 #Prints out arrays A and B as specified in the assignment
 #print_loop(int* A, int* B, int size)
 print_loop:
-	move $t0, $a0           #pointer to matrix A
-	move $t1, $a1           #pointer to matrix B
+	move $t0, $a0           #pointer to array A
+	move $t1, $a1           #pointer to array B
 	move $t2, $a2           #t2 = num
 	li $t3, 1               #counter = 1
 	

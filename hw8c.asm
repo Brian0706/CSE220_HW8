@@ -31,7 +31,7 @@ p_loop:
 	bge $t0, $s1, p_end   #if(counter >= n) goto p_end
 	li $v0, 1             
 	lw $a0, 0($s0)
-	syscall               #printf("%d", s0)
+	syscall               #printf("%d", v[counter])
 	li $v0, 4
 	la $a0, space
 	syscall               #printf(" ")
@@ -56,13 +56,13 @@ bubble_sort:
 	li $t1, 0           # i = 0
 	li $t2, 0           # j = 0
 
-#Loop through all indices from 0 to n-1
+#Loop through all indices from 0 to n-2
 out_loop: 
 	bge $t1, $t0, out_end     #if(i >= n-1) goto out_end
 	li $t2, 0                 # j = 0
 	move $t3, $t0             #t3 = n - 1
 	sub $t3, $t3, $t1         #t3 = n - 1 - i
-#Loop through all indices from 0 to n-1-i and perform one iteration of bubble sort
+#Loop through all indices from 0 to n-2-i and perform one iteration of bubble sort
 in_loop:
 	bge $t2, $t3, in_end      #if(j >= n-1-i) goto in_end
 	sll $t4, $t2, 2           #t4 = j * 4
