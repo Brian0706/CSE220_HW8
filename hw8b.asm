@@ -3,9 +3,9 @@
 
 .data
 .align 2
-A: .space 60 #memory space for Array A
-B: .space 60 #memory space for Array B
-num: .word 15 #number of elements
+A: .space 40 #memory space for Array A
+B: .space 40 #memory space for Array B
+num: .word 10 #number of elements
 startA: .asciiz "A["
 startB: .asciiz "B["
 ending: .asciiz "]="
