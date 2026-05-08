@@ -1,5 +1,5 @@
 # Brian Chau
-# SBU Id: 116125954
+# SBU ID: 116125954
 
 .data
 v: .word 1,4,6,-7,-3,4,8,11,-12,0     #Array that will be sorted
@@ -43,6 +43,8 @@ p_end:
 li $v0, 10
 syscall
 
+#bubble_sort sorts the array in descending order using bubble sort
+#bubble_sort(int arr[], int n)
 bubble_sort:
 	addi $sp, $sp, -8   # Set aside space in stack
 	sw $s0, 0($sp)      # Store s0 in stack frame

@@ -1,5 +1,5 @@
 # Brian Chau
-# SBU Id: 116125954
+# SBU ID: 116125954
 
 .data
 .align 2

@@ -1,5 +1,5 @@
 # Brian Chau
-# SBU Id: 116125954
+# SBU ID: 116125954
 
 .data
 #-----------------------------------------------
@@ -76,7 +76,7 @@ p_end:
 	syscall
 
 multiply:
-	#Get arguments stored in callee stack frame
+	#Get arguments stored in caller stack frame
 	lw $t0, 0($sp)      #t0 = B
 	lw $t1, 4($sp)      #t1 = C
 	

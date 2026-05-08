@@ -1,5 +1,5 @@
 # Brian Chau
-# SBU Id: 116125954
+# SBU ID: 116125954
 
 .data
 typeprompt: .asciiz "Triangle(0) or Square(1) or Pyramid (2)? "
@@ -110,7 +110,7 @@ square:
 	li $a0, '\n'           #a0 = '\n'
 	syscall                #printf("%c",a0);
 	move $a0, $s0          #a0 = width
-	addi $a1, $s1, 1       #curHeight = curHeight + 1
+	addi $a1, $s1, 1       #a1 = curHeight + 1
 	jal square             #square(width, curHeight + 1)
 
 s_reset:
@@ -145,7 +145,7 @@ triangle:
 	li $a0, '\n'             #a0 = '\n'
 	syscall                  #printf("%c",a0);
 	move $a0, $s0            #a0 = width
-	addi $a1, $s1, 1         #curHeight = curHeight + 1
+	addi $a1, $s1, 1         #a1 = curHeight + 1
 	jal triangle             #triangle(width, curHeight + 1)
 
 t_reset:
@@ -197,7 +197,7 @@ l_end:
 	li $a0, '\n'            #a0 = '\n'
 	syscall                 #printf('%c', a0)
 	move $a0, $s0           #a0 = width
-	addi $a1, $s1, 1        #curHeight = curHeight + 1
+	addi $a1, $s1, 1        #a1 = curHeight + 1
 	jal pyramid             #pyramid(width, curHeight + 1)
 
 p_end:

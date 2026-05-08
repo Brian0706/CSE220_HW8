@@ -226,4 +226,20 @@ Part A
 - Also, to accomidate printing the stars of pyramid, the print_star_line takes two arguments instead of One
     -The two arguments are: times which is the number of times to print the string
                             string the string which is to repeadtly printed
+- For the pyramid, there is an extra trailing space, as it calls print_star_line with the string "* "
+    - This does not affect what the pyramid looks like and this can only be seen by highlighting it
+
+Part B
+- Part B uses two functions, one to swap the arrays and one to print the result
+- Part B uses the num to figure out what the size of the array is. If the array is smaller than what num indicates
+    -The function will go into memory that is unreserved causing undefined behavior
+
+Part C
+- The program assumes that num gives the correct size of the array
+- If num is too large or too small, the program will either read too much or too little memory
+
+Part D
+- The program only works with square matrices, as there is only one size argument given
+- The code can be easily modified by adding in additonal integer words in data and assigning them to a0, a1 or a2
+
 
