@@ -23,7 +23,7 @@ Input:
 Shape: 2
 Size: 1
 Result: 
-*
+* 
 
 Test 4 - Base Triangle
 Input: 
@@ -52,11 +52,11 @@ Input:
 Shape: 2
 Size: 5
 Result: 
-    *    
-   * *   
-  * * *  
- * * * *
-* * * * *
+    * 
+   * * 
+  * * * 
+ * * * * 
+* * * * * 
 
 Part B tests:
 - The input is given as a comma seperated list. To run this take each number and input them into the console
@@ -133,7 +133,7 @@ message: .asciiz "Sorted Array: "
 space: .asciiz " "
 
 Result:
-Sorted Array: 10
+Sorted Array: 10 
 
 Test 2: Sorted in ascending order
 Input:
@@ -144,7 +144,7 @@ message: .asciiz "Sorted Array: "
 space: .asciiz " "
 
 Result:
-Sorted Array: 9 8 7 6 5 4 3 2 1 0
+Sorted Array: 9 8 7 6 5 4 3 2 1 0 
 
 Test 3: Already Sorted
 Input:
@@ -155,7 +155,7 @@ message: .asciiz "Sorted Array: "
 space: .asciiz " "
 
 Result:
-Sorted Array: 9 8 7 6 5 4 3 2 1 0
+Sorted Array: 9 8 7 6 5 4 3 2 1 0 
 
 Test 4: Repeated number
 Input: 
@@ -166,7 +166,7 @@ message: .asciiz "Sorted Array: "
 space: .asciiz " "
 
 Result:
-Sorted Array: 45 12 11 8 7 6 4 4 3 1
+Sorted Array: 45 12 11 8 7 6 4 4 3 1 
 
 Test 5: Negative values
 Input:
@@ -177,7 +177,7 @@ message: .asciiz "Sorted Array: "
 space: .asciiz " "
 
 Result:
-Sorted Array: 11 8 6 4 4 1 0 -3 -7 -12
+Sorted Array: 11 8 6 4 4 1 0 -3 -7 -12 
 
 Part D tests:
 -Tests will involve changing the data section
@@ -203,7 +203,7 @@ Result:
 0 0 0 0 
 0 0 0 0 
 0 0 0 0 
-0 0 0 0
+0 0 0 0 
 
 Test 2: One by One Matrix
 Input:
@@ -216,7 +216,7 @@ n: .word 1 # matrix dimension (1x1)
 newline: .asciiz "\n"
 space: .asciiz " "
 Result:
-4
+4 
 
 Test 3: Reciprocal Matrices
 Input:
@@ -231,8 +231,8 @@ n: .word 2 # matrix dimension (2x2)
 newline: .asciiz "\n"
 space: .asciiz " "
 Result:
-1 0
-0 1
+1 0 
+0 1 
 
 Test 4: Base Case
 Input:
@@ -254,7 +254,7 @@ Result:
 2 4 6 8 
 10 12 14 16 
 18 20 22 24 
-26 28 30 32
+26 28 30 32 
 
 Test 5: Negative Values
 Input:
@@ -276,7 +276,7 @@ Result:
 -2 4 6 8 
 10 12 14 16 
 -18 -20 -22 24 
--26 28 30 32
+-26 28 30 32 
 
 Things to note about my functions
 
@@ -297,10 +297,12 @@ Part B
 Part C
 - The program assumes that num gives the correct size of the array
 - If num is too large or too small, the program will either read too much or too little memory
+- This function also has a trailing space in the output
 
 Part D
 - The program only works with square matrices, as there is only one size argument given
 - The code can be easily modified by adding in additonal integer words in data and assigning them to a0, a1 or a2
 - Likewise, to print out C correctly, you will need to change the code if you decide to add in more dimesions besides n.
+- This function also has a trailing space in the output for each line
 
 
