@@ -60,7 +60,22 @@ Result:
 
 Part B tests:
 - The input is given as a comma seperated list. To run this take each number and input them into the console
-left to right
+  left to right
+- Some of these tests have a data section before input, this indicates what needs to be copied into the data 
+  section for the program to get the desired result along with the input in the console
+- If the data is not given, use this default data section:
+.data
+.align 2
+A: .space 40 #memory space for Array A
+B: .space 40 #memory space for Array B
+num: .word 10 #number of elements
+startA: .asciiz "A["
+startB: .asciiz "B["
+ending: .asciiz "]="
+newline: .asciiz "\n"
+border: .asciiz "|"
+space: .asciiz " "
+
 Test 1 - Same values
 Input: 1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,0,0
 Result: 1 1|2 2|3 3|4 4|5 5|6 6|7 7|8 8|9 9|0 0|
@@ -75,78 +90,115 @@ Result: -2 1|4 -3|6 -5|-8 -7|0 9|-2 1|4 -3|6 5|-8 -7|0 9|
 
 Test 4 - Different n
 .data
+.align 2
 A: .space 20 #memory space for Array A
 B: .space 20 #memory space for Array B
 num: .word 5
+startA: .asciiz "A["
+startB: .asciiz "B["
+ending: .asciiz "]="
+newline: .asciiz "\n"
+border: .asciiz "|"
+space: .asciiz " "
+
 Input: 1,2,3,4,5,6,7,8,9,0
 Result: 2 1|4 3|6 5|8 7|0 9|
 
 Test 5 - Smallest case
 .data
+.align 2
 A: .space 4 #memory space for Array A
 B: .space 4 #memory space for Array B
 num: .word 1
+startA: .asciiz "A["
+startB: .asciiz "B["
+ending: .asciiz "]="
+newline: .asciiz "\n"
+border: .asciiz "|"
+space: .asciiz " "
+
 Input: 1,2
 Result: 2 1|
 
 Part C tests:
 -Tests will involve changing the data section
+-Copy paste the input into data
 
 Test 1: smallest test
 Input:
 .data
-v: .word 10
-n: .word 1
+v: .word 10     #Array that will be sorted
+n: .word 1      #Size of array
+message: .asciiz "Sorted Array: "
+space: .asciiz " "
+
 Result:
 Sorted Array: 10
 
 Test 2: Sorted in ascending order
 Input:
 .data
-v: .word 0,1,2,3,4,5,6,7,8,9
-n: .word 10
+v: .word 0,1,2,3,4,5,6,7,8,9     #Array that will be sorted
+n: .word 10                      #Size of array
+message: .asciiz "Sorted Array: "
+space: .asciiz " "
+
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 3: Already Sorted
 Input:
 .data
-v: .word 9,8,7,6,5,4,3,2,1,0
-n: .word 10
+v: .word 9,8,7,6,5,4,3,2,1,0     #Array that will be sorted
+n: .word 10                      #Size of array
+message: .asciiz "Sorted Array: "
+space: .asciiz " "
+
 Result:
 Sorted Array: 9 8 7 6 5 4 3 2 1 0
 
 Test 4: Repeated number
 Input: 
 .data
-v: .word 1,4,6,7,3,4,8,11,12,45
-n: .word 10
+v: .word 1,4,6,7,3,4,8,11,12,45     #Array that will be sorted
+n: .word 10                         #Size of array
+message: .asciiz "Sorted Array: "
+space: .asciiz " "
+
 Result:
 Sorted Array: 45 12 11 8 7 6 4 4 3 1
 
 Test 5: Negative values
 Input:
 .data
-v: .word 1,4,6,-7,-3,4,8,11,-12,0
-n: .word 10
+v: .word 1,4,6,-7,-3,4,8,11,-12,0     #Array that will be sorted
+n: .word 10                           #Size of array
+message: .asciiz "Sorted Array: "
+space: .asciiz " "
+
 Result:
 Sorted Array: 11 8 6 4 4 1 0 -3 -7 -12
 
 Part D tests:
+-Tests will involve changing the data section
+-Copy paste the input into data
+
 Test 1: Zero Matrix
 Input:
 .data
-A: .word 1, 2, 3, 4
+A: .word 1, 2, 3, 4       # Matrix to be multiplied n x m
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
 .word 13, 14, 15, 16
-B: .word 0, 0, 0, 0 
+B: .word 0, 0, 0, 0       # Matrix to be multiplied m x p
 .word 0, 0, 0, 0
 .word 0, 0, 0, 0
 .word 0, 0, 0, 0
 .align 2
 C: .space 64 # 16 integers * 4 bytes each = 64 bytes
 n: .word 4 # matrix dimension (4x4)
+newline: .asciiz "\n"
+space: .asciiz " "
 Result:
 0 0 0 0 
 0 0 0 0 
@@ -156,24 +208,28 @@ Result:
 Test 2: One by One Matrix
 Input:
 .data
-A: .word 2
-B: .word 2
+A: .word 2       # Matrix to be multiplied n x m
+B: .word 2       # Matrix to be multiplied m x p
 .align 2
 C: .space 4
 n: .word 1 # matrix dimension (1x1)
+newline: .asciiz "\n"
+space: .asciiz " "
 Result:
 4
 
 Test 3: Reciprocal Matrices
 Input:
 .data
-A: .word 4, 3
+A: .word 4, 3       # Matrix to be multiplied n x m
 .word 3, 2
-B: .word -2, 3
+B: .word -2, 3      # Matrix to be multiplied m x p
 .word 3, -4
 .align 2
 C: .space 16 # 4 integers * 4 bytes each = 16 bytes
 n: .word 2 # matrix dimension (2x2)
+newline: .asciiz "\n"
+space: .asciiz " "
 Result:
 1 0
 0 1
@@ -181,17 +237,19 @@ Result:
 Test 4: Base Case
 Input:
 .data
-A: .word 1, 2, 3, 4
+A: .word 1, 2, 3, 4       # Matrix to be multiplied n x m
 .word 5, 6, 7, 8
 .word 9, 10, 11, 12
 .word 13, 14, 15, 16
-B: .word 2, 0, 0, 0
+B: .word 2, 0, 0, 0       # Matrix to be multiplied m x p
 .word 0, 2, 0, 0
 .word 0, 0, 2, 0
 .word 0, 0, 0, 2
 .align 2
 C: .space 64 # 16 integers * 4 bytes each = 64 bytes
 n: .word 4 # matrix dimension (4x4)
+newline: .asciiz "\n"
+space: .asciiz " "
 Result:
 2 4 6 8 
 10 12 14 16 
@@ -201,17 +259,19 @@ Result:
 Test 5: Negative Values
 Input:
 .data
-A: .word 1, 2, -3, 4
+A: .word 1, 2, -3, 4       # Matrix to be multiplied n x m
 .word -5, 6, -7, 8
 .word 9, -10, 11, 12
 .word 13, 14, -15, 16
-B: .word -2, 0, 0, 0
+B: .word -2, 0, 0, 0       # Matrix to be multiplied m x p
 .word 0, 2, 0, 0
 .word 0, 0, -2, 0
 .word 0, 0, 0, 2
 .align 2
 C: .space 64 # 16 integers * 4 bytes each = 64 bytes
 n: .word 4 # matrix dimension (4x4)
+newline: .asciiz "\n"
+space: .asciiz " "
 Result:
 -2 4 6 8 
 10 12 14 16 
@@ -241,5 +301,6 @@ Part C
 Part D
 - The program only works with square matrices, as there is only one size argument given
 - The code can be easily modified by adding in additonal integer words in data and assigning them to a0, a1 or a2
+- Likewise, to print out C correctly, you will need to change the code if you decide to add in more dimesions besides n.
 
 
